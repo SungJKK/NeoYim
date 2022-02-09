@@ -1,0 +1,6 @@
+# Cache directory
+/_cache
+
+# Lua formatter
+.stylua.toml
+
