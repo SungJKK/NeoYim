@@ -1,4 +1,4 @@
-local status_ok, tmux = pcall(require, 'tmux')
+local status_ok, tmux = pcall(require, "tmux")
 if not status_ok then
     return
 end
@@ -54,6 +54,5 @@ tmux.setup {
 
         -- sets resize steps for y axis
         resize_step_y = 1,
-    }
+    },
 }
-

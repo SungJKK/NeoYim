@@ -1,3 +1,28 @@
+local json_schemas = {
+        "babelrc.json",
+        ".eslintrc",
+        "prettierrc.json",
+        "jsconfig.json",
+        "tsconfig.json",
+        "package.json",
+        "CMake Presets",
+        "compile_commands.json",
+        "AWS CloudFormation",
+        "AWS CloudFormation Serverless Application Model (SAM)",
+        "GitHub Workflow",
+        "JSON Feed",
+        "Packer",
+        ".vsconfig",
+        "JSON Resume",
+        "Ansible Playbook",
+        "Helm Chart.yaml",
+        "helmfile",
+        "GitHub Action",
+        "GitHub Workflow",
+        "GitHub Workflow Template Properties",
+        "gitlab-ci",
+}
+
 local default_schemas = nil
 local status_ok, jsonls_settings = pcall(require, "nlspsettings.jsonls")
 if status_ok then
@@ -134,24 +159,20 @@ end
 
 local extended_schemas = extend(schemas, default_schemas)
 
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities.textDocument.completion.completionItem.snippetSupport = true
-
 return {
-    cmd = { 'vscode-json-language-server', '--stdio' },
-    filetypes = { 'json', 'jsonc' },
-    -- capabilities = capabilities,
+    cmd = { "vscode-json-language-server", "--stdio" },
+    filetypes = { "json", "jsonc" },
     settings = {
         json = {
-            schemas = extended_schemas
-        }
+            schemas = extended_schemas,
+        },
     },
     commands = {
         Format = {
             function()
-                vim.lsp.buf.range_formatting({}, {0, 0}, {vim.fn.line("$"), 0})
-            end
-        }
+                vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line "$", 0 })
+            end,
+        },
     },
-    single_file_support = true
+    single_file_support = true,
 }

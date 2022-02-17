@@ -1,42 +1,38 @@
 -- Initialize
-require("core.bootstrap")
+require "core.bootstrap"
 
--- Plugins
-local plugins = require('plugins')
-require("plugin_loader").load(plugins)
+require "packerInit"
+require "pluginsList"
 
-
+-- Theme settings
+require "theme.barbar"
+require "theme.lualine"
+require "theme.dashboard"
+require "theme.nvim-tree"
+require "theme.colorscheme"
 
 -- LSP settings
 require "lsp"
 
--- Theme settings
-require "theme.colorscheme"
-require "theme.barbar"
-require "theme.lualine"
-require "theme.nvim-tree"
-require "theme.dashboard"
-
-require "plugins_conf.filetype"
-
 -- Plugins
-require "plugins_conf.cmp"
-require "plugins_conf.trouble"
-require "plugins_conf.treesitter"
-require "plugins_conf.telescope"
+require "plugins.tmux"
+require "plugins.filetype"
 
-require "plugins_conf.git-signs"
-require "plugins_conf.git-diffview"
+require "plugins.cmp"
+require "plugins.trouble"
+require "plugins.treesitter"
+require "plugins.telescope"
 
-require "plugins_conf.aerial"
-require "plugins_conf.autopairs"
+require "plugins.git-signs"
+require "plugins.git-diffview"
 
-require "plugins_conf.comment"
-require "plugins_conf.todo-comments"
-require "plugins_conf.colorizer"
+require "plugins.aerial"
+require "plugins.autopairs"
 
-require "plugins_conf.toggleterm"
+require "plugins.comment"
+require "plugins.todo-comments"
+require "plugins.colorizer"
 
-require "plugins_conf.which-key"
+require "plugins.toggleterm"
 
-require "plugins_conf.tmux"
+require "plugins.which-key"

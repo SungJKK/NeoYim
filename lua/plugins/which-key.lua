@@ -1,4 +1,4 @@
-local status_ok, wk = pcall(require, 'which-key')
+local status_ok, wk = pcall(require, "which-key")
 if not status_ok then
     return
 end
@@ -39,15 +39,15 @@ wk.setup {
         group = "+", -- symbol prepended to a group
     },
     popup_mappings = {
-        scroll_down = '<c-d>', -- binding to scroll down inside the popup
-        scroll_up = '<c-u>', -- binding to scroll up inside the popup
+        scroll_down = "<c-d>", -- binding to scroll down inside the popup
+        scroll_up = "<c-u>", -- binding to scroll up inside the popup
     },
     window = {
         border = "single", -- none, single, double, shadow
         position = "bottom", -- bottom, top
         margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
         padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-        winblend = 0
+        winblend = 0,
     },
     layout = {
         height = { min = 4, max = 25 }, -- min and max height of the columns
@@ -56,7 +56,7 @@ wk.setup {
         align = "center", -- align columns left, center or right
     },
     ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
-    hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "}, -- hide mapping boilerplate
+    hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
     show_help = false, -- show help message on the command line when the popup is visible
     triggers = "auto", -- automatically setup triggers
     -- triggers = {"<leader>"} -- or specify a list manually
@@ -76,85 +76,88 @@ local n_opts = {
     buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
     silent = true, -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
-    nowait = false -- use `nowait` when creating keymaps
+    nowait = false, -- use `nowait` when creating keymaps
 }
 wk.register({
-    e = { '<cmd>NvimTreeToggle<cr>', 'File explorer' },
-    l = { ':set hlsearch!<cr>', 'Toggle hlsearch' },
+    e = { "<cmd>NvimTreeToggle<cr>", "File explorer" },
+    i = { ":set hlsearch!<cr>", "Toggle hlsearch" },
     r = { ":lua vim.lsp.buf.formatting_sync()<cr>", "Format file" },
     p = {
-        name = '+Packer',
-        i = { ':PackerInstall<cr>', 'Install' },
-        c = { ':PackerClean<cr>', 'Clean' },
-        s = { ':PackerSynce<cr>', 'Update' }
+        name = "+Packer",
+        i = { ":PackerInstall<cr>", "Install" },
+        c = { ":PackerCompile profile=true<cr>", "Compile" },
+        r = { ":PackerClean<cr>", "Clean" },
+        u = { ":PackerSync<cr>", "Update" },
+        p = { ":PackerProfile<cr>", "Profiling" },
     },
     s = {
-        name = '+Session',
-        s = { ':<C-u>SessionSave<cr>', 'Save session' },
-        l = { ':<C-u>SessionLoad<cr>', 'Load session' }
+        name = "+Session",
+        s = { ":<C-u>SessionSave<cr>", "Save session" },
+        l = { ":<C-u>SessionLoad<cr>", "Load session" },
     },
     d = {
-        name = '+TODO',
-        c = { '<cmd>TodoLocList<cr>', 'view_current_file' },
-        t = { '<cmd>TodoTrouble<cr>', 'view_trouble' },
-        q = { '<cmd>TodoQuickFix<cr>', 'view_quickfix' },
-        f = { '<cmd>TodoTelescope<cr>', 'view_telescope' },
+        name = "+TODO",
+        c = { "<cmd>TodoLocList<cr>", "view_current_file" },
+        t = { "<cmd>TodoTrouble<cr>", "view_trouble" },
+        q = { "<cmd>TodoQuickFix<cr>", "view_quickfix" }, -- use after :grep "string"
+        f = { "<cmd>TodoTelescope<cr>", "view_telescope" },
     },
     f = {
-        name = '+Find',
-        r = { "<cmd>lua require'telescope.builtin'.registers()<cr>", 'Registers'},
-        m = { "<cmd>lua require'telescope.builtin'.marks()<cr>", 'Marks'},
-        f = { "<cmd>lua require'telescope.builtin'.find_files()<cr>", 'Files'},
-        l = { "<cmd>lua require'telescope.builtin'.live_grep()<cr>", 'Text'},
-        c = { "<cmd>lua require'telescope.builtin'.colorscheme()<cr>", 'Colorschemes'},
-        p = { "<cmd>lua require'telescope.builtin'.man_pages()<cr>", 'Man pages'},
-        h = { "<cmd>lua require'telescope.builtin'.commands()<cr>", 'Commands'},
-        e = { ":Telescope symbols<cr>", 'Emojis' },
-        d = { "<cmd>lua require('telescope').extensions.dict.synonyms()<cr>", 'Dictionary'},
+        name = "+Find",
+        s = {
+            ":lua require'telescope.builtin'.symbols{sources = {'emoji', 'gitmoji', 'math', 'latex'}}<cr>",
+            "Symbols",
+        },
+        t = { "<cmd>lua require'telescope.builtin'.live_grep()<cr>", "Text" },
+        f = { "<cmd>lua require'telescope.builtin'.find_files()<cr>", "Files" },
+        c = { "<cmd>lua require'telescope.builtin'.commands()<cr>", "Commands" },
+        r = { "<cmd>lua require'telescope.builtin'.registers()<cr>", "Registers" },
+        m = { "<cmd>lua require'telescope.builtin'.marks()<cr>", "Marks" },
+        p = { "<cmd>lua require'telescope.builtin'.man_pages()<cr>", "Man pages" },
+        d = { "<cmd>lua require('telescope').extensions.dict.synonyms()<cr>", "Dictionary" },
+        u = { "<cmd>lua require'telescope.builtin'.colorscheme()<cr>", "Colorschemes" },
     },
-    i = {
-        name = '+LSP',
-        i = { ':LspInfo<cr>', 'LSP Info' },
-        s = { ':LspInstallInfo<cr>', 'LSP servers' },
+    l = {
+        name = "+LSP",
+        i = { ":LspInfo<cr>", "LSP Info" },
+        s = { ":LspInstallInfo<cr>", "LSP servers" },
 
-        t = { '<cmd>Trouble<cr>', 'Trouble list' },
-        r = { '<cmd>Trouble lsp_references<cr>', 'Lsp References'},
+        r = { "<cmd>Trouble lsp_references<cr>", "Lsp References" },
 
-        w = { '<cmd>Trouble workspace_diagnostics<cr>', 'Workspace diagnostics' },
-        d = { '<cmd>Trouble document_diagnostics<cr>', 'Document diagnostics' },
+        w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace diagnostics" },
+        d = { "<cmd>Trouble document_diagnostics<cr>", "Document diagnostics" },
 
-        q = { '<cmd>Trouble quickfix<cr>', 'Quick Fix' },
-        l = { '<cmd>Trouble loclist<cr>', 'Local list' },
+        q = { "<cmd>Trouble quickfix<cr>", "Quick Fix" },
+        l = { "<cmd>Trouble loclist<cr>", "Local list" },
 
-        e = { ":lua require'telescope.builtin'.lsp_implementations()<cr>", 'Lsp implementations'},
+        e = { ":lua require'telescope.builtin'.lsp_implementations()<cr>", "Lsp implementations" },
     },
     a = {
-        name = '+Aerial',
-        t = { '<cmd>AerialToggle<cr>', 'Toggle'},
-        o = { '<cmd>AerialTreeOpen<cr>', 'Open section' },
-        c = { '<cmd>AerialTreeClose<cr>', 'Close section' },
+        name = "+Aerial",
+        t = { "<cmd>AerialToggle<cr>", "Toggle" },
+        o = { "<cmd>AerialTreeOpen<cr>", "Open section" },
+        c = { "<cmd>AerialTreeClose<cr>", "Close section" },
     },
     g = {
-        name = '+Git',
-        t = { '<cmd>Gitsigns toggle_current_line_blame<cr>', 'Toggle blame' },
-        l = { ':lua _LAZYGIT_TOGGLE()<cr>', 'Lazy git'},
+        name = "+Git",
+        t = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle blame" },
+        l = { ":lua _LAZYGIT_TOGGLE()<cr>", "Lazy git" },
 
         -- Telesccope
-        f = { "<cmd>lua require'telescope.builtin'.git_files()<cr>", 'Git files'},
-        b = { "<cmd>lua require'telescope.builtin'.git_branches()<cr>", 'Git branches'},
-        c = { "<cmd>lua require'telescope.builtin'.git_commits()<cr>", 'Git commits'},
+        f = { "<cmd>lua require'telescope.builtin'.git_files()<cr>", "Git files" },
+        b = { "<cmd>lua require'telescope.builtin'.git_branches()<cr>", "Git branches" },
+        c = { "<cmd>lua require'telescope.builtin'.git_commits()<cr>", "Git commits" },
 
         -- Git Diffview
         g = { ":DiffviewOpen<cr>", "Open git_diff" },
         d = { ":DiffviewClose<cr>", "Close git_diff" },
-        e = { ":DiffviewToggleFiles<cr>", "Files panel git_diff"},
+        e = { ":DiffviewToggleFiles<cr>", "Files panel git_diff" },
     },
     t = {
-        name = '+Terminal',
-        t = { ':ToggleTerm<cr>', 'Toggle terminal'},
-        h = { ":ToggleTerm direction=horizontal size=12<cr>", 'Horizontal terminal'},
-        v = { ":ToggleTerm direction=vertical size=40<cr>", 'Vertical terminal'},
-        m = { ":lua _HTOP_TOGGLE()<cr>", 'Htop'},
-    }
+        name = "+Terminal",
+        t = { ":ToggleTerm<cr>", "Toggle terminal" },
+        h = { ":ToggleTerm direction=horizontal size=12<cr>", "Horizontal terminal" },
+        v = { ":ToggleTerm direction=vertical size=40<cr>", "Vertical terminal" },
+        m = { ":lua _HTOP_TOGGLE()<cr>", "Htop" },
+    },
 }, n_opts)
-

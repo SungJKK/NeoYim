@@ -1,10 +1,10 @@
-local status_ok, aerial = pcall(require, 'aerial')
+local status_ok, aerial = pcall(require, "aerial")
 if not status_ok then
     return
 end
 
-aerial.setup({
-    backends = { "lsp"  },
+aerial.setup {
+    backends = { "lsp" },
     -- When jumping to a symbol, highlight the line for this many ms. Set to false to disable
     highlight_on_jump = false,
     -- When you fold code with za, zo, or zc, update the aerial tree as well. Only works when manage_folds = true
@@ -24,4 +24,4 @@ aerial.setup({
     post_jump_cmd = false,
     -- Show box drawing characters for the tree hierarchy
     show_guides = false,
-})
+}

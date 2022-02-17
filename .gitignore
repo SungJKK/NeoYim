@@ -1,6 +1,5 @@
 # Cache directory
 /_cache
 
-# Lua formatter
-.stylua.toml
-
+# Compiled packer
+packer_compiled.lua

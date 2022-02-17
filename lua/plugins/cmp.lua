@@ -99,20 +99,21 @@ cmp.setup {
                 buffer = "[Buffer]",
                 path = "[Path]",
                 nvim_lua = "[Nvim_Lua]",
-                emoji = "[emoji]",
+                latex_symbols = "[LaTex]",
+                dictionary = "[Dictionary]",
             })[entry.source.name]
             return vim_item
         end,
     },
-    sources = cmp.config.sources({
+    sources = cmp.config.sources {
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
-    }, {
         { name = "nvim_lua" },
         { name = "latex_symbols" },
-    }),
+        { name = "dictionary", keyword_length = 2 },
+    },
     confirm_opts = {
         behavior = cmp.ConfirmBehavior.Replace,
         select = false,
@@ -123,5 +124,16 @@ cmp.setup {
     experimental = {
         ghost_text = true,
         native_menu = false,
+    },
+}
+
+-- Cmp dictionary
+local dict_status_ok, dict = pcall(require, "cmp_dictionary")
+if not dict_status_ok then
+    return
+end
+dict.setup {
+    dic = {
+        ["*"] = { BASE_DIR .. "/utils/dictionary/english_US.dict" },
     },
 }

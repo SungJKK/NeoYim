@@ -1,6 +1,12 @@
 local status_ok, lsp_installer = pcall(require, "nvim-lsp-installer")
 if not status_ok then
+    print('lsp-installer not found')
     return
+end
+
+local status_notify_ok, _ = pcall(require, 'notify')
+if status_notify_ok then
+    vim.notify = require('notify')
 end
 
 -- LSP servers setup
@@ -20,9 +26,9 @@ local lsp_servers = {
     "hls", -- Haskell
     "clangd", -- C & C++
     "sumneko_lua", -- Lua
-    "vimls",         -- VimL
+    "vimls", -- VimL
 
-    "texlab",   -- LaTeX
+    "texlab", -- LaTeX
 }
 
 -- Automatically install servers if not yet installed & Setup servers
@@ -61,7 +67,7 @@ lsp_installer.settings {
 lsp_installer.on_server_ready(function(server)
     local opts = {
         on_attach = require("lsp.handlers").on_attach,
-        capabilities = require("lsp.handlers").capabilities,
+        capabilities = require("lsp.handlers").capabilities(),
     }
 
     if server.name == "jsonls" then
@@ -117,6 +123,11 @@ lsp_installer.on_server_ready(function(server)
     if server.name == "sumneko_lua" then
         local sumneko_opts = require "lsp.servers.sumneko_lua"
         opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
+    end
+
+    if server.name == "texlab" then
+        local texlab_opts = require "lsp.servers.texlab"
+        opts = vim.tbl_deep_extend("force", texlab_opts, opts)
     end
 
     server:setup(opts)

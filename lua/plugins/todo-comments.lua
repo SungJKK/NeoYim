@@ -1,4 +1,4 @@
-local status_ok, tcomments = pcall(require, 'todo-comments')
+local status_ok, tcomments = pcall(require, "todo-comments")
 if not status_ok then
     return
 end

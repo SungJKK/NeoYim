@@ -1,26 +1,18 @@
 # Configuration for Neovim setup
 
 # TODO
-- [ ] Markdown-preview & vim-table & vim-visual-multi & vim-surround
-- [ ] keybindings (:checkhealth which_key)
-- [ ] DAP (DAPinstall, nvim-dap, nvim-dap-ui)
-- [ ] Polish UI 
-
-- [ ] Clean config structure & optimize startup time
+- [ ] Polish config structure & create global "settings" file to toggle settings
 - [ ] Use vim notify when setting up for debugging & errors
-- [ ] Format all files
+- [ ] Change base cache dir to .config/nvim/_cache for loggings (+ impatient)
+- [ ] Format all files & Add pictures in git repository
 
-- [ ] enable toggleterm so that it is modifiable (https://stackoverflow.com/questions/5745506/vim-modifiable-is-off)
-- [ ] Lua script / command to copy (prettier, floskell) configs into working dir 
-- [ ] Lua script to add undo_dir_cleanup.sh to crontab
-- [ ] Add pictures in git repository
+- [ ] Script to clean up loggings & backups
+- [ ] Add integration w/ vscodium
 
-- [ ] Add logging
-- [ ] Add latex support
-- [ ] spell & grammar check (telescope-dict, vim-grammarous)
-- [ ] octo.nvim
-- [ ] nvim-orgmode 
-- [ ] Add vscodium integration
+
+- [ ] Add DAP (DAPinstall, nvim-dap, nvim-dap-ui)
+- [ ] Enable cmp-dictionary async, add lspconfig for grammarly + md, markdown link follow
+- [ ] Create lua plugin for Franklin planner (integrate w/ md)
 
 
 
