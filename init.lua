@@ -4,6 +4,7 @@ require "core.bootstrap"
 require "packerInit"
 require "pluginsList"
 
+
 -- Theme settings
 require "theme.barbar"
 require "theme.lualine"

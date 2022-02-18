@@ -82,7 +82,7 @@ wk.register({
     e = { "<cmd>NvimTreeToggle<cr>", "File explorer" },
     i = { ":set hlsearch!<cr>", "Toggle hlsearch" },
     r = { ":lua vim.lsp.buf.formatting_sync()<cr>", "Format file" },
-    p = {
+    u = {
         name = "+Packer",
         i = { ":PackerInstall<cr>", "Install" },
         c = { ":PackerCompile profile=true<cr>", "Compile" },
@@ -151,6 +151,10 @@ wk.register({
         -- Git Diffview
         g = { ":DiffviewOpen<cr>", "Open git_diff" },
         d = { ":DiffviewClose<cr>", "Close git_diff" },
+    },
+    p = {
+        name = "+Preview",
+        m = { ":MarkdownPreview<cr>", "Markdown Preview" },
     },
     t = {
         name = "+Terminal",

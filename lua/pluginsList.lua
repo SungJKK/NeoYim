@@ -6,10 +6,8 @@ end
 
 packer.startup(function(use)
     -- Packer can manage itself as an optional plugin
-    use {
-        "wbthomason/packer.nvim",
-        event = "VimEnter",
-    }
+    use { "wbthomason/packer.nvim" }
+
     -- Need this until https://github.com/neovim/neovim/issues/12587 is open
     use { "antoinemadec/FixCursorHold.nvim" }
 
@@ -121,11 +119,15 @@ packer.startup(function(use)
     use { "dhruvasagar/vim-table-mode" }
     use {
         "iamcco/markdown-preview.nvim",
+        ft = { "markdown" },
         run = "cd app && npm install",
         setup = function()
-            vim.g.mkdp_filetypes = { "markdown" }
+            vim.g.mkdp_filetypes = { 'markdown' }
+            vim.g.mkdp_auto_close = 0
+            vim.g.mkdp_browser = 'firefox'
+
+            vim.g.mkdp_markdown_css = ''
         end,
-        ft = { "markdown" },
     }
 
     -- Themes
