@@ -151,7 +151,6 @@ wk.register({
         -- Git Diffview
         g = { ":DiffviewOpen<cr>", "Open git_diff" },
         d = { ":DiffviewClose<cr>", "Close git_diff" },
-        e = { ":DiffviewToggleFiles<cr>", "Files panel git_diff" },
     },
     t = {
         name = "+Terminal",
