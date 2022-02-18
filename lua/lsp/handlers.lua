@@ -1,23 +1,14 @@
 local M = {}
 
 M.setup = function()
-    local signs = {
-        { name = "DiagnosticsSignError", text = "" },
-        { name = "DiagnosticsSignWarn", text = "" },
-        { name = "DiagnosticsSignHint", text = "" },
-        { name = "DiagnosticsSignInfo", text = "" },
-    }
-
-    for _, sign in ipairs(signs) do
-        vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+    local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+    for type, icon in pairs(signs) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
     end
 
     local config = {
-        -- virtual_text = false,
-        virtual_text = {
-            prefix = "",
-            spacing = 5,
-        },
+        virtual_text = true,
         signs = {
             active = signs,
         },
@@ -38,14 +29,13 @@ M.setup = function()
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
         border = "rounded",
     })
-
     vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signatureHelp, {
         border = "rounded",
     })
-
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
         underline = true,
         virtual_text = {
+            prefix = "",
             spacing = 5,
             severity_limit = "Warning",
         },
@@ -55,11 +45,12 @@ end
 
 local function lsp_keymaps(bufnr)
     -- Keybindings
-    -- See `:help vim.diagnostic.*` for documentation on any of the below functions
     local opts = { noremap = true, silent = true }
     local keymap = vim.api.nvim_buf_set_keymap
 
     keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+    keymap(bufnr, "n", "gf", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+
     keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
     keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)

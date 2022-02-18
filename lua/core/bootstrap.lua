@@ -21,3 +21,6 @@ end
 -- Core settings
 require "core.options"
 require "core.keybindings"
+
+-- Packer setup
+require "core.packer"

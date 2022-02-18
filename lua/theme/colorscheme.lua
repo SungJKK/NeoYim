@@ -7,7 +7,7 @@
 -- vim.g.moonlight_borders = false
 -- vim.g.moonlight_disable_background = false
 -- require('moonlight').set()
---
+
 -- Material
 vim.g.material_style = "deep ocean" -- deep ocean, darker, lighter, palenight, oceanic
 require("material").setup {

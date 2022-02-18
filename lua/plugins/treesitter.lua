@@ -18,6 +18,7 @@ require("nvim-treesitter.configs").setup {
     },
     indent = {
         enable = true,
+        disable = { "python" }
     },
     context_commentstring = {
         enable = true,
@@ -32,6 +33,7 @@ require("nvim-treesitter.configs").setup {
             "html",
             "javascript",
             "javascriptreact",
+            "typescript",
             "typescriptreact",
             "svelte",
             "vue",
@@ -43,16 +45,3 @@ require("nvim-treesitter.configs").setup {
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
     },
 }
-
---[[
-    context_commentstring = {
-        enable = true,
-        javascript = {
-            __default = '// %s',
-            jsx_element = '{/* %s */}',
-            jsx_fragment = '{/* %s */}',
-            jsx_attribute = '// %s',
-            comment = '// %s'
-        }
-    }
---]]

@@ -7,64 +7,46 @@ end
 packer.startup(function(use)
     -- Packer can manage itself as an optional plugin
     use { "wbthomason/packer.nvim" }
-
     -- Need this until https://github.com/neovim/neovim/issues/12587 is open
     use { "antoinemadec/FixCursorHold.nvim" }
 
     -- Startup optimization
     use {
         "tweekmonster/startuptime.vim",
-        disable = false,
-        -- cmd = "StartupTime"
+        cmd = "StartupTime",
     }
     use { "lewis6991/impatient.nvim" }
-    use { "nathom/filetype.nvim" }
+    use {
+        "nathom/filetype.nvim",
+        config = function()
+            require "plugins.filetype"
+        end,
+    }
 
-    -- LSP
-    use { "neovim/nvim-lspconfig" }
-    use { "williamboman/nvim-lsp-installer" }
-    use { "tamago324/nlsp-settings.nvim" }
+    -- Treesitter & Syntax
     use {
-        "folke/lsp-colors.nvim",
-        after = "nvim-lspconfig",
-    }
-    use { "folke/trouble.nvim" }
-    use { "jose-elias-alvarez/null-ls.nvim", disable = false }
-
-    -- Snippets & Completions
-    use {
-        "rafamadriz/friendly-snippets",
-        -- event = "InsertAfter"
+        "nvim-treesitter/nvim-treesitter",
+        run = ":TSUpdate",
+        config = function()
+            require "plugins.treesitter"
+        end,
     }
     use {
-        "hrsh7th/nvim-cmp",
-        -- after = 'friendly-snippets'
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        after = "nvim-treesitter",
+        event = "BufReadPost",
     }
+    use { "windwp/nvim-ts-autotag", after = "nvim-treesitter" }
+    use { "p00f/nvim-ts-rainbow", after = "nvim-treesitter" }
+    use { "MTDL9/vim-log-highlighting" }
     use {
-        "L3MON4D3/LuaSnip",
-        wants = "friendly-snippets",
-        -- after = 'nvim-cmp'
+        "windwp/nvim-autopairs",
+        after = { "nvim-treesitter", "nvim-cmp" },
+        config = function()
+            require "plugins.autopairs"
+        end,
     }
-    use {
-        "saadparwaiz1/cmp_luasnip",
-        -- after = { 'nvim-cmp', 'LuaSnip' }
-    }
-    use {
-        "hrsh7th/cmp-nvim-lsp",
-    }
-    use {
-        "hrsh7th/cmp-buffer",
-    }
-    use {
-        "hrsh7th/cmp-path",
-    }
-    use {
-        "hrsh7th/cmp-nvim-lua",
-    }
-    use {
-        "kdheepak/cmp-latex-symbols",
-    }
-    use { "uga-rosa/cmp-dictionary" }
+    use { "tpope/vim-surround" }
 
     -- Telescope
     use { "nvim-lua/plenary.nvim" }
@@ -76,70 +58,171 @@ packer.startup(function(use)
             "nvim-lua/popup.nvim",
             "nvim-telescope/telescope-fzf-native.nvim",
         },
+        config = function()
+            require "plugins.telescope"
+        end,
     }
-    use {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        run = "make",
-    }
-    use {
-        "nvim-telescope/telescope-symbols.nvim",
-    }
-    use { "rudism/telescope-dict.nvim" }
+    use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+    use { "nvim-telescope/telescope-symbols.nvim", after = "telescope.nvim" }
+    use { "rudism/telescope-dict.nvim", after = "telescope.nvim" }
 
-    -- Treesitter & Syntax
-    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+    -- LSP
+    use { "neovim/nvim-lspconfig" }
+    use { "williamboman/nvim-lsp-installer" }
+    use { "tamago324/nlsp-settings.nvim" }
     use {
-        "JoosepAlviste/nvim-ts-context-commentstring",
-    }
-    use { "windwp/nvim-ts-autotag" }
-    use {
-        "p00f/nvim-ts-rainbow",
+        "folke/lsp-colors.nvim",
+        after = "nvim-lspconfig",
     }
     use {
-        "MTDL9/vim-log-highlighting",
+        "folke/trouble.nvim",
+        config = function()
+            require "plugins.trouble"
+        end,
     }
+    use {
+        "jose-elias-alvarez/null-ls.nvim",
+    }
+    use {
+        "stevearc/aerial.nvim",
+        config = function()
+            require "plugins.aerial"
+        end,
+    }
+
+    -- Completions & Snippets
+    use {
+        "hrsh7th/nvim-cmp",
+        config = function()
+            require "plugins.cmp"
+        end,
+        requires = {
+            "L3MON4D3/LuaSnip",
+            "rafamadriz/friendly-snippets",
+        },
+    }
+    use { "hrsh7th/cmp-nvim-lsp" }
+    use { "hrsh7th/cmp-buffer" }
+    use { "hrsh7th/cmp-path" }
+    use { "hrsh7th/cmp-nvim-lua" }
+    use { "kdheepak/cmp-latex-symbols" }
+    use { "uga-rosa/cmp-dictionary" }
+    use { "saadparwaiz1/cmp_luasnip" }
+    use {
+        "L3MON4D3/LuaSnip",
+        wants = "friendly-snippets",
+    }
+    use { "rafamadriz/friendly-snippets" }
 
     -- Git
-    use { "lewis6991/gitsigns.nvim" }
-    use { "sindrets/diffview.nvim" }
-
-    -- Coding
-    use { "stevearc/aerial.nvim" }
     use {
-        "windwp/nvim-autopairs",
+        "lewis6991/gitsigns.nvim",
+        event = "BufRead",
+        config = function()
+            require "plugins.git-signs"
+        end,
     }
-    use { "numToStr/Comment.nvim" }
-    use { "folke/todo-comments.nvim" }
-    use { "norcalli/nvim-colorizer.lua" }
-    use { "akinsho/toggleterm.nvim" }
+    use {
+        "sindrets/diffview.nvim",
+        event = "BufWinEnter",
+        config = function()
+            require "plugins.git-diffview"
+        end,
+    }
 
-    -- Utils
-    use { "aserowy/tmux.nvim" }
-    use { "tpope/vim-surround" }
-    use { "dhruvasagar/vim-table-mode" }
+    -- General
+    use {
+        "aserowy/tmux.nvim",
+        event = "BufWinEnter",
+        config = function()
+            require "plugins.tmux"
+        end,
+    }
+    use {
+        "akinsho/toggleterm.nvim",
+        event = "BufWinEnter",
+        config = function()
+            require "plugins.toggleterm"
+        end,
+    }
+    use {
+        "folke/which-key.nvim",
+        event = "BufWinEnter",
+        config = function()
+            require "plugins.which-key"
+        end,
+    }
+
+    use {
+        "numToStr/Comment.nvim",
+        config = function()
+            require "plugins.comment"
+        end,
+    }
+    use {
+        "folke/todo-comments.nvim",
+        config = function()
+            require "plugins.todo-comments"
+        end,
+    }
+    use {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require "plugins.colorizer"
+        end,
+    }
+
+    use {
+        "dhruvasagar/vim-table-mode",
+        ft = { "markdown" },
+    }
     use {
         "iamcco/markdown-preview.nvim",
         ft = { "markdown" },
         run = "cd app && npm install",
         setup = function()
-            vim.g.mkdp_filetypes = { 'markdown' }
+            vim.g.mkdp_filetypes = { "markdown" }
             vim.g.mkdp_auto_close = 0
-            vim.g.mkdp_browser = 'firefox'
-
-            vim.g.mkdp_markdown_css = ''
+            vim.g.mkdp_browser = "firefox"
+            vim.g.mkdp_markdown_css = ""
         end,
     }
+    use { "rcarriga/nvim-notify" }
 
-    -- Themes
+    -- Themes & UI
     use { "shaunsingh/moonlight.nvim" }
     use { "marko-cerovac/material.nvim" }
-
-    -- UI
-    use { "kyazdani42/nvim-tree.lua" }
     use { "kyazdani42/nvim-web-devicons" }
-    use { "romgrk/barbar.nvim" }
-    use { "nvim-lualine/lualine.nvim" }
-    use { "glepnir/dashboard-nvim" }
-    use { "folke/which-key.nvim" }
-    use { "rcarriga/nvim-notify" }
+
+    use {
+        "kyazdani42/nvim-tree.lua",
+        cmd = "NvimTreeToggle",
+        requires = {
+            "kyazdani42/nvim-web-devicons",
+        },
+        config = function()
+            require "theme.nvim-tree"
+        end,
+    }
+    use {
+        "romgrk/barbar.nvim",
+        event = "BufWinEnter",
+        config = function()
+            require "theme.barbar"
+        end,
+    }
+    use {
+        "nvim-lualine/lualine.nvim",
+        event = "BufWinEnter",
+        config = function()
+            require "theme.lualine"
+        end,
+    }
+    use {
+        "glepnir/dashboard-nvim",
+        event = "BufWinEnter",
+        config = function()
+            require "theme.dashboard"
+        end,
+    }
 end)
