@@ -158,7 +158,7 @@ wk.register({
     },
     t = {
         name = "+Terminal",
-        t = { ":ToggleTerm<cr>", "Toggle terminal" },
+        f = { ":ToggleTerm<cr>", "Toggle terminal" },
         h = { ":ToggleTerm direction=horizontal size=12<cr>", "Horizontal terminal" },
         v = { ":ToggleTerm direction=vertical size=40<cr>", "Vertical terminal" },
         m = { ":lua _HTOP_TOGGLE()<cr>", "Htop" },

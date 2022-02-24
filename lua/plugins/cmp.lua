@@ -134,6 +134,6 @@ if not dict_status_ok then
 end
 dict.setup {
     dic = {
-        ["*"] = { BASE_DIR .. "/utils/dictionary/english_US.dict" },
+        ["markdown"] = { BASE_DIR .. "/utils/dictionary/english_US.dict" },
     },
 }
