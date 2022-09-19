@@ -2,7 +2,7 @@
 vim.cmd "let bufferline = get(g:, 'bufferline', {})"
 vim.cmd "let bufferline.animation = v:false"
 vim.cmd "let bufferline.icon_separator_active = '▎'"
-vim.cmd "let bufferline.icon_separator_inactive = '▎'"
+vim.cmd "let bufferline.icon_separator_inactive = ''"
 vim.cmd "let bufferline.icon_close_tab = ''"
 vim.cmd "let bufferline.icon_close_tab_modified = '●'"
 

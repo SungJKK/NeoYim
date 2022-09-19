@@ -67,8 +67,11 @@ packer.startup(function(use)
     use { "rudism/telescope-dict.nvim", after = "telescope.nvim" }
 
     -- LSP
-    use { "neovim/nvim-lspconfig" }
-    use { "williamboman/nvim-lsp-installer" }
+    use {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+    }
     use { "tamago324/nlsp-settings.nvim" }
     use {
         "folke/lsp-colors.nvim",
@@ -173,10 +176,6 @@ packer.startup(function(use)
     }
 
     use {
-        "dhruvasagar/vim-table-mode",
-        ft = { "markdown" },
-    }
-    use {
         "iamcco/markdown-preview.nvim",
         ft = { "markdown" },
         run = "cd app && npm install",
@@ -187,13 +186,31 @@ packer.startup(function(use)
             vim.g.mkdp_markdown_css = ""
         end,
     }
+
     use { "rcarriga/nvim-notify" }
+    use {
+        "Tastyep/structlog.nvim",
+        config = function()
+            require "plugins.logger"
+        end,
+    }
+
+    -- Competitive programming
+    use {
+        "xeluxee/competitest.nvim",
+        requires = "MunifTanjim/nui.nvim",
+        config = function()
+            require "plugins.competitest"
+        end,
+    }
 
     -- Themes & UI
     use { "shaunsingh/moonlight.nvim" }
     use { "marko-cerovac/material.nvim" }
-    use { "kyazdani42/nvim-web-devicons" }
+    use { "Mofiqul/vscode.nvim" }
+    use { "folke/tokyonight.nvim" }
 
+    use { "kyazdani42/nvim-web-devicons" }
     use {
         "kyazdani42/nvim-tree.lua",
         cmd = "NvimTreeToggle",

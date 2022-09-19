@@ -207,5 +207,8 @@ ins_right {
     cond = conditions.hide_in_width,
 }
 
--- Now don't forget to initialize lualine
+-- Initialize lualine
 lualine.setup(config)
+
+-- Set one statusline on all buffers
+vim.opt.laststatus = 3

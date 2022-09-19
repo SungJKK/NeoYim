@@ -3,22 +3,6 @@ if not status_ok then
     vim.notify("Nvim-Tree plugin is not found", "error")
 end
 
-vim.g.nvim_tree_show_icons = { git = 1, folders = 1, files = 1, folder_arrows = 0 }
-vim.g.nvim_tree_icons = {
-    default = "",
-    symlink = "",
-    git = {
-        unstaged = "✗",
-        staged = "✓",
-        unmerged = "",
-        renamed = "➜",
-        untracked = "★",
-        deleted = "",
-        ignored = "◌",
-    },
-    folder = { default = "", open = "", empty = "", empty_open = "", symlink = "" },
-}
-
 local tree_cb = require("nvim-tree.config").nvim_tree_callback
 local nvim_tree_bindings = {
     -- Keybindings
@@ -43,14 +27,9 @@ nvim_tree.setup {
     hijack_netrw = true,
     open_on_setup = false,
     ignore_ft_on_setup = { "dashboard" },
-    auto_close = true,
     open_on_tab = false,
     hijack_cursor = false,
     update_cwd = false,
-    update_to_buf_dir = {
-        enable = true,
-        auto_open = true,
-    },
     diagnostics = {
         enable = false,
         icons = {
@@ -69,6 +48,28 @@ nvim_tree.setup {
         cmd = nil,
         args = {},
     },
+    sort_by = "case_sensitive",
+    renderer = {
+        icons = {
+            show = {
+                git = true,
+            },
+            glyphs = {
+                default = "",
+                symlink = "",
+                git = {
+                    unstaged = "✗",
+                    staged = "✓",
+                    unmerged = "",
+                    renamed = "➜",
+                    untracked = "★",
+                    deleted = "",
+                    ignored = "◌",
+                },
+                folder = { default = "", open = "", empty = "", empty_open = "", symlink = "" },
+            },
+        },
+    },
     filters = {
         dotfiles = false,
         custom = {},
@@ -83,7 +84,6 @@ nvim_tree.setup {
         height = 30,
         hide_root_folder = false,
         side = "left",
-        auto_resize = false,
         mappings = {
             custom_only = true,
             list = nvim_tree_bindings,
@@ -97,3 +97,12 @@ nvim_tree.setup {
         require_confirm = true,
     },
 }
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  nested = true,
+  callback = function()
+    if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil then
+      vim.cmd "quit"
+    end
+  end
+})

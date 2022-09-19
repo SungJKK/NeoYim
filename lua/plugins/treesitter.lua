@@ -1,7 +1,7 @@
 require("nvim-treesitter.install").compilers = { "clang" }
 
 require("nvim-treesitter.configs").setup {
-    ensure_installed = "maintained",
+    ensure_installed = "all",
     sync_install = false,
     -- Not maintained. Setup later for haskell
     ignore_install = {
@@ -10,6 +10,8 @@ require("nvim-treesitter.configs").setup {
         "hack",
         "markdown",
         "swift",
+        "phpdoc", 
+        "tree-sitter-phpdoc"
     },
     highlight = {
         enable = true,
@@ -18,7 +20,7 @@ require("nvim-treesitter.configs").setup {
     },
     indent = {
         enable = true,
-        disable = { "python" }
+        disable = { "python", "cpp" }
     },
     context_commentstring = {
         enable = true,

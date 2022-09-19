@@ -86,6 +86,8 @@ local function lsp_highlight_document(client)
     end
 end
 
+
+-- For Aerial
 M.on_attach = function(client, bufnr)
     local aerial_status_ok, aerial = pcall(require, "aerial")
     if aerial_status_ok then

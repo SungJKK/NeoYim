@@ -52,7 +52,7 @@ local options = {
     writebackup = true,
     backupext = '.bak',
     backupcopy = "auto", -- 'yes': more detailed but slower. 'no': less detailed but faster.
-    backupdir = require("core.utils"):create_dir(BASE_DIR .. "/_cache/backups"),
+    -- backupdir = require("core.utils"):create_dir(BASE_DIR .. "/_cache/backups"),
 
     swapfile = false,
     undofile = false,

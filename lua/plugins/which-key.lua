@@ -82,6 +82,14 @@ wk.register({
     e = { "<cmd>NvimTreeToggle<cr>", "File explorer" },
     i = { ":set hlsearch!<cr>", "Toggle hlsearch" },
     r = { ":lua vim.lsp.buf.formatting_sync()<cr>", "Format file" },
+    n = { ":Notifications<cr>", "Notifications" },
+    c = {
+        name = "+Competitive Programming",
+        a = {":CompetiTestAdd<cr>", "Add testcases"},
+        e = {":CompetiTestEdit<cr>", "Edit testcases"},
+        d = {":CompetiTestDelete<cr>", "Delete testcases"},
+        r = {":CompetiTestRun<cr>", "Run testcases"},
+    },
     u = {
         name = "+Packer",
         i = { ":PackerInstall<cr>", "Install" },
@@ -92,8 +100,8 @@ wk.register({
     },
     s = {
         name = "+Session",
-        s = { ":<C-u>SessionSave<cr>", "Save session" },
-        l = { ":<C-u>SessionLoad<cr>", "Load session" },
+        s = { "<cmd>SessionSave<cr>", "Save session" },
+        l = { "<cmd>SessionLoad<cr>", "Load session" },
     },
     d = {
         name = "+TODO",
@@ -108,6 +116,7 @@ wk.register({
             ":lua require'telescope.builtin'.symbols{sources = {'emoji', 'gitmoji', 'math', 'latex'}}<cr>",
             "Symbols",
         },
+        o = { "<cmd>lua require'telescope.builtin'.oldfiles()<cr>", "Recent files" },
         t = { "<cmd>lua require'telescope.builtin'.live_grep()<cr>", "Text" },
         f = { "<cmd>lua require'telescope.builtin'.find_files()<cr>", "Files" },
         c = { "<cmd>lua require'telescope.builtin'.commands()<cr>", "Commands" },
@@ -119,8 +128,8 @@ wk.register({
     },
     l = {
         name = "+LSP",
-        i = { ":LspInfo<cr>", "LSP Info" },
-        s = { ":LspInstallInfo<cr>", "LSP servers" },
+        i = { ":LspInfo<cr>", "LSP server info" },
+        s = { ":Mason<cr>", "All servers" },
 
         r = { "<cmd>Trouble lsp_references<cr>", "Lsp References" },
 
