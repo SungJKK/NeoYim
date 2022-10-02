@@ -209,6 +209,7 @@ packer.startup(function(use)
     use { "marko-cerovac/material.nvim" }
     use { "Mofiqul/vscode.nvim" }
     use { "folke/tokyonight.nvim" }
+    use { "LunarVim/horizon.nvim" }
 
     use { "kyazdani42/nvim-web-devicons" }
     use {

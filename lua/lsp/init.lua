@@ -5,7 +5,6 @@ if not status_ok then
 end
 
 require("lsp.handlers"):setup()
--- require "lsp.lsp-installer"
 local opts = {
     on_attach = require("lsp.handlers").on_attach,
     capabilities = require("lsp.handlers").capabilities(),
