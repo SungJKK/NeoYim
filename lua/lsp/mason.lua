@@ -1,10 +1,8 @@
 -- Mason setup
-local status_ok, mason = pcall(require, "mason")
+local status_ok, _ = pcall(require, "mason")
 if not status_ok then
     return
 end
-
-mason.setup {}
 
 -- Mason-lspconfig setup
 local status_ok, mason_lspconfig = pcall(require, "mason-lspconfig")

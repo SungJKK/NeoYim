@@ -31,6 +31,7 @@ keymap("n", "<S-Right>", ":vertical resize -2<CR>", opts)
 -- Tab to switch between buffers
 keymap("n", "<TAB>", ":bnext<CR>", opts)
 keymap("n", "<S-TAB>", ":bprev<CR>", opts)
+keymap("n", "<S-c>", ":bdelete<CR>", opts)
 
 -- Better window splitting
 keymap("n", "<Leader>v", ":vsp<CR>", opts)

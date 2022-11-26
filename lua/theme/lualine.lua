@@ -3,6 +3,11 @@ if not status_ok then
     return
 end
 
+local status_ok, navic = pcall(require, 'nvim-navic')
+if not status_ok then
+    return
+end
+
 local colors = {
     bg = "#0F111A",
     fg = "#A6ACCD",
@@ -37,14 +42,16 @@ local config = {
         -- Disable sections and component separators
         component_separators = "",
         section_separators = "",
-        theme = {
-            -- We are going to use lualine_c an lualine_x as left and
-            -- right section. Both are highlighted by c theme .  So we
-            -- are just setting default looks o statusline
-            normal = { c = { fg = colors.fg, bg = colors.bg } },
-            inactive = { c = { fg = colors.fg, bg = colors.bg } },
+        theme = 'auto',
+        globalstatus = true,
+        disabled_filetypes = {
+            statusline = {"dashboard", "NvimTree", "toggleterm"},
+            winbar = {"dashboard", "NvimTree", "toggleterm"},
         },
-        disabled_filetypes = { "dashboard", "NvimTree", "toggleterm" },
+        refresh = {
+            statusline = 1000,
+            winbar = 1000,
+        },
     },
     sections = {
         -- these are to remove the defaults
@@ -65,6 +72,24 @@ local config = {
         lualine_c = {},
         lualine_x = {},
     },
+    tabline = nil,
+    winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { { navic.get_location, cond = navic.is_available } },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {}
+    },
+    inactive_winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {}
+    },
+    extensions = {}
 }
 
 -- Inserts a component in lualine_c at left section

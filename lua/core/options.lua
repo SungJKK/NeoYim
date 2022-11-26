@@ -42,7 +42,7 @@ end
 
 -- Built-in options
 local options = {
-    shell = "/bin/zsh",
+    shell = "/opt/homebrew/bin/fish",
     encoding = "utf-8",
     fileencoding = "utf-8",
     spelllang = "en_us",
@@ -61,10 +61,12 @@ local options = {
     pumheight = 10,
     cmdheight = 2,
     conceallevel = 0, -- So that I can see `` in markdown files
-    tabstop = 4,
-    shiftwidth = 4,
+
     expandtab = true,
     smarttab = true,
+    tabstop = 4,
+    shiftwidth = 4,
+
     laststatus = 2,
     showtabline = 2, -- always show tabs
     updatetime = 300, -- faster completion
@@ -107,3 +109,7 @@ vim.opt.iskeyword:append "-" -- treat dash separated words as a word text object
 for k, v in pairs(options) do
     vim.opt[k] = v
 end
+
+vim.o.ls = 0 -- laststatus height 0
+vim.o.ch = 0 -- cmd height 0
+

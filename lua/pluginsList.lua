@@ -205,11 +205,10 @@ packer.startup(function(use)
     }
 
     -- Themes & UI
-    use { "shaunsingh/moonlight.nvim" }
-    use { "marko-cerovac/material.nvim" }
-    use { "Mofiqul/vscode.nvim" }
     use { "folke/tokyonight.nvim" }
-    use { "LunarVim/horizon.nvim" }
+    use { "EdenEast/nightfox.nvim" }
+    use { 'kartikp10/noctis.nvim', requires = { 'rktjmp/lush.nvim' } }
+    use {'shaunsingh/oxocarbon.nvim', run = './install.sh'}
 
     use { "kyazdani42/nvim-web-devicons" }
     use {
@@ -223,11 +222,15 @@ packer.startup(function(use)
         end,
     }
     use {
-        "romgrk/barbar.nvim",
-        event = "BufWinEnter",
-        config = function()
+        'romgrk/barbar.nvim', 
+        wants = 'nvim-web-devicons',
+        config = function ()
             require "theme.barbar"
         end,
+    }
+    use {
+        "SmiteshP/nvim-navic",
+        requires = "neovim/nvim-lspconfig"
     }
     use {
         "nvim-lualine/lualine.nvim",
