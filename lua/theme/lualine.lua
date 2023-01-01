@@ -76,7 +76,10 @@ local config = {
     winbar = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = { { navic.get_location, cond = navic.is_available } },
+          lualine_c = {
+            { 'filename', path = 1, color = { bg = 'NONE' }},
+            { navic.get_location, cond = navic.is_available }
+          },
           lualine_x = {},
           lualine_y = {},
           lualine_z = {}
@@ -84,7 +87,7 @@ local config = {
     inactive_winbar = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = {},
+          lualine_c = { { 'filename', path = 1, color = { bg = 'NONE' }} },
           lualine_x = {},
           lualine_y = {},
           lualine_z = {}

@@ -83,13 +83,6 @@ wk.register({
     i = { ":set hlsearch!<cr>", "Toggle hlsearch" },
     r = { ":lua vim.lsp.buf.formatting_sync()<cr>", "Format file" },
     n = { ":Notifications<cr>", "Notifications" },
-    c = {
-        name = "+Competitive Programming",
-        a = {":CompetiTestAdd<cr>", "Add testcases"},
-        e = {":CompetiTestEdit<cr>", "Edit testcases"},
-        d = {":CompetiTestDelete<cr>", "Delete testcases"},
-        r = {":CompetiTestRun<cr>", "Run testcases"},
-    },
     u = {
         name = "+Packer",
         i = { ":PackerInstall<cr>", "Install" },

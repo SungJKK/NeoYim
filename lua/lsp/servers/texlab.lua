@@ -1,7 +1,7 @@
 local util = require "lspconfig/util"
 
 return {
-    cmd = { "texlab" },
+    cmd = { "tex" },
     filetypes = { "tex", "bib", "markdown", "text" },
     root_dir = function(fname)
         return util.root_pattern ".latexmkrc"(fname) or util.find_git_ancestor(fname)

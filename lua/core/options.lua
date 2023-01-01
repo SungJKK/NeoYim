@@ -1,48 +1,6 @@
--- Disable built-in neovim plugins
-local disabled_built_ins = {
-    "netrw",
-    "netrwPlugin",
-    "netrwSettings",
-    "netrwFileHandlers",
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
-    "spellfile_plugin",
-    "matchit",
-}
-for _, plugin in pairs(disabled_built_ins) do
-    vim.g["loaded_" .. plugin] = 1
-end
-
--- If filetype.nvim exists, use that instead of builtin ft
-local ft_status_ok, _ = pcall(require, "filetype")
-if ft_status_ok then
-    vim.g.did_load_filetypes = 1
-end
-
--- Stop newline continuation of comments
--- TODO: in lua??
-vim.cmd "autocmd BufEnter * set formatoptions-=cro"
-vim.cmd "autocmd BufEnter * setlocal formatoptions-=cro"
-
--- Use ripgrep as default vimgrep if it exists
-if vim.fn.executable "rg" then
-    vim.o.grepprg = "rg -H --no-heading --smart-case --hidden --follow --vimgrep"
-    vim.o.grepformat = "%f:%l:%c:%m"
-end
-
 -- Built-in options
 local options = {
-    shell = "/opt/homebrew/bin/fish",
+    shell = "/opt/homebrew/bin/bash",
     encoding = "utf-8",
     fileencoding = "utf-8",
     spelllang = "en_us",
@@ -58,16 +16,12 @@ local options = {
     undofile = false,
 
     timeoutlen = 300, -- By default timeoutlen is 1000 ms
-    pumheight = 10,
-    cmdheight = 2,
-    conceallevel = 0, -- So that I can see `` in markdown files
 
     expandtab = true,
     smarttab = true,
     tabstop = 4,
     shiftwidth = 4,
 
-    laststatus = 2,
     showtabline = 2, -- always show tabs
     updatetime = 300, -- faster completion
     scrolloff = 5,
@@ -101,15 +55,65 @@ local options = {
     termguicolors = true,
     guifont = "FiraCodeMono",
     completeopt = { "menuone", "noselect" }, -- needed for nvim-compe
-}
-vim.opt.shortmess:append "c" -- Don't pass messages to |ins-completion-menu|.
-vim.opt.whichwrap:append "<,>,[,],h,l"
-vim.opt.iskeyword:append "-" -- treat dash separated words as a word text object"
 
+    conceallevel = 0, -- So that I can see `` in markdown files
+    pumheight = 10, -- pseudo-transparency for the popup-menu
+    laststatus = 0, -- 0 laststatus height
+    cmdheight = 0, -- 0 cmd height
+}
 for k, v in pairs(options) do
     vim.opt[k] = v
 end
 
-vim.o.ls = 0 -- laststatus height 0
-vim.o.ch = 0 -- cmd height 0
+
+vim.opt.shortmess:append "c" -- Don't pass messages to |ins-completion-menu|.
+vim.opt.whichwrap:append "<,>,[,],h,l"
+vim.opt.iskeyword:append "-" -- treat dash separated words as a word text object"
+
+-- Stop newline continuation of comments
+-- TODO: in lua??
+vim.cmd "autocmd BufEnter * set formatoptions-=cro"
+vim.cmd "autocmd BufEnter * setlocal formatoptions-=cro"
+
+
+-- Use ripgrep as default vimgrep if it exists
+if vim.fn.executable "rg" then
+    vim.o.grepprg = "rg -H --no-heading --smart-case --hidden --follow --vimgrep"
+    vim.o.grepformat = "%f:%l:%c:%m"
+else
+    print "Could not load ripgrep..."
+end
+
+
+-- If filetype.nvim exists, use that instead of builtin ft
+local ft_status_ok, _ = pcall(require, "filetype")
+if ft_status_ok then
+    vim.g.did_load_filetypes = 1
+end
+
+
+-- Disable built-in neovim plugins
+-- local disabled_built_ins = {
+--     "netrw",
+--     "netrwPlugin",
+--     "netrwSettings",
+--     "netrwFileHandlers",
+--     "gzip",
+--     "zip",
+--     "zipPlugin",
+--     "tar",
+--     "tarPlugin",
+--     "getscript",
+--     "getscriptPlugin",
+--     "vimball",
+--     "vimballPlugin",
+--     "2html_plugin",
+--     "logipat",
+--     "rrhelper",
+--     "spellfile_plugin",
+--     "matchit",
+-- }
+-- for _, plugin in pairs(disabled_built_ins) do
+--     vim.g["loaded_" .. plugin] = 1
+-- end
 
