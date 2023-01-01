@@ -23,18 +23,16 @@ local M = {
             "nvim-treesitter/nvim-treesitter",
         },
     },
-    { "windwp/nvim-ts-autotag",
-        dependencies = "nvim-treesitter/nvim-treesitter"
-    },
+    { "windwp/nvim-ts-autotag", dependencies = "nvim-treesitter/nvim-treesitter" },
     {
-        "p00f/nvim-ts-rainbow", 
-        dependencies = "nvim-treesitter/nvim-treesitter" 
+        "p00f/nvim-ts-rainbow",
+        dependencies = "nvim-treesitter/nvim-treesitter",
     },
     {
         "windwp/nvim-autopairs",
-        dependencies = { 
-            "nvim-treesitter/nvim-treesitter", 
-            "hrsh7th/nvim-cmp" 
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "hrsh7th/nvim-cmp",
         },
         config = function()
             require "plugins.autopairs"
@@ -62,12 +60,18 @@ local M = {
     { "rudism/telescope-dict.nvim", dependencies = "nvim-telescope/telescope.nvim" },
 
     -- LSP
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+    "jose-elias-alvarez/null-ls.nvim",
     {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "neovim/nvim-lspconfig",
+        "stevearc/aerial.nvim",
+        config = function()
+            require "plugins.aerial"
+        end,
     },
-    { "tamago324/nlsp-settings.nvim" },
+
+    "tamago324/nlsp-settings.nvim",
     {
         "folke/lsp-colors.nvim",
         dependencies = "neovim/nvim-lspconfig",
@@ -76,15 +80,6 @@ local M = {
         "folke/trouble.nvim",
         config = function()
             require "plugins.trouble"
-        end,
-    },
-    {
-        "jose-elias-alvarez/null-ls.nvim",
-    },
-    {
-        "stevearc/aerial.nvim",
-        config = function()
-            require "plugins.aerial"
         end,
     },
 

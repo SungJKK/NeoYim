@@ -86,6 +86,7 @@ end
 
 
 -- If filetype.nvim exists, use that instead of builtin ft
+-- TODO: perhaps not needed since neovim 0.8 uses filetype.lua by default
 local ft_status_ok, _ = pcall(require, "filetype")
 if ft_status_ok then
     vim.g.did_load_filetypes = 1

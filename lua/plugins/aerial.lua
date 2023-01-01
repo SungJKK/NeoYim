@@ -17,11 +17,12 @@ aerial.setup {
     -- The maximum width of the aerial window
     max_width = 60,
     min_width = 25,
-    -- Call this function when aerial attaches to a buffer.
-    -- Useful for setting keymaps. Takes a single `bufnr` argument.
-    on_attach = nil,
     -- Run this command after jumping to a symbol (false will disable)
     post_jump_cmd = false,
     -- Show box drawing characters for the tree hierarchy
     show_guides = false,
+
+    -- Call this function when aerial attaches to a buffer.
+    -- Useful for setting keymaps. Takes a single `bufnr` argument.
+    on_attach = nil,
 }

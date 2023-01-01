@@ -3,12 +3,7 @@ if not status_ok then
     return
 end
 
-local formatting = null_ls.builtins.formatting
-local diagnostics = null_ls.builtins.diagnostics
-local hover = null_ls.builtins.hover
-local completion = null_ls.builtins.completion
-
--- Format for lua, c/c++, hs, py, ts/js
+-- Formatters for lua, c/c++, hs, py, ts/js
 local helpers = require "null-ls.helpers"
 local floskell = helpers.make_builtin {
     name = "floskell",
@@ -26,19 +21,22 @@ null_ls.register(floskell)
 null_ls.setup {
     sources = {
         -- lua
-        formatting.stylua,
+        null_ls.builtins.formatting.stylua,
 
         -- c/c++
-        formatting.clang_format.with {
+        null_ls.builtins.formatting.clang_format.with {
             filetypes = { "c", "cpp", "objc", "objcpp" },
         },
 
         -- python
-        formatting.black.with { extra_args = { "--fast" } },
+        null_ls.builtins.formatting.black.with {
+            extra_args = { "--fast" },
+        },
 
         -- typescript & javascript
-        formatting.prettier.with {
+        null_ls.builtins.formatting.prettier.with {
             extra_args = { "--config", BASE_DIR .. "/utils/formats/prettier.json" },
+            filetypes = { "html", "json", "yaml", "markdown" },
         },
     },
 }

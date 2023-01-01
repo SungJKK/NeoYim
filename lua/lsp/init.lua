@@ -1,13 +1,42 @@
--- Install LSP servers automatically with Mason
-require "lsp.mason"
+local lsp_servers = {
+        "jsonls", -- JSON
+        "yamlls", -- Yaml
+        "dockerls", -- Docker
 
--- LSP config
-local status_ok, lsp = pcall(require, "lspconfig")
-if not status_ok then
-    return
-end
+        "texlab", -- LaTeX
+        "bashls", -- Bash
 
-local function lsp_keymaps(bufnr)
+        "html", -- HTML
+        "cssls", -- CSS
+        "tsserver", -- Javscript & Typescript
+        "sqls", -- SQL
+
+        "pyright", -- Python
+        "hls", -- Haskell
+
+        "cmake", -- CMake
+        "clangd", -- C & C++
+        "asm_lsp", -- Assembly
+
+        "sumneko_lua", -- Lua
+        "vimls", -- VimL
+}
+
+-- Setup mason & mason-lspconfig
+local status_ok, _ = pcall(require, 'mason')
+if not status_ok then return end
+local status_ok, mason_lspconfig = pcall(require, 'mason-lspconfig')
+if not status_ok then return end
+mason_lspconfig.setup({
+    ensure_installed = lsp_servers,
+    automatic_installation = true,
+})
+
+-- Setup lspconfig
+local status_ok, lspconfig = pcall(require, "lspconfig")
+if not status_ok then return end
+
+local on_attach = function(client, bufnr)
     -- Keybindings
     local opts = { noremap = true, silent = true }
     local keymap = vim.api.nvim_buf_set_keymap
@@ -22,48 +51,23 @@ local function lsp_keymaps(bufnr)
     keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
     keymap(bufnr, "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     keymap(bufnr, "n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-end
-local function lsp_formatting(client)
-    -- So that it doesn't clash with null-ls
-    if client.server_capabilities.document_formatting then
-        client.server_capabilities.document_formatting = false
-    end
-    if client.server_capabilities.document_range_formatting then
-        client.server_capabilities.document_range_formatting = false
-    end
-end
-local function lsp_highlight_document(client)
-    -- Set autocommands conditional on server capabilities
-    if client.server_capabilities.document_highlight then
-        vim.api.nvim_exec(
-            [[
-        augroup lsp_document_highlight
-            autocmd! * <buffer>
-            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup end
-        ]],
-            false
-        )
-    end
-end
 
+    -- To check complete server capabilities, open a file, and run below command
+    -- :lua =vim.lsp.get_active_clients()[1].server_capabilities
 
--- For Aerial & Navic
-local on_attach = function(client, bufnr)
+    -- So that formatting doesn't clash with null-ls
+    if client.server_capabilities.documentFormattingProvider then
+        client.server_capabilities.documentFormattingProvider = false
+    end
+    if client.server_capabilities.documentRangeFormattingProvider then
+        client.server_capabilities.documentRangeFormattingProvider = false
+    end
+
+    -- For Navic
     local status_ok, navic = pcall(require, 'nvim-navic')
     if status_ok and client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
     end
-
-    local status_ok, aerial = pcall(require, "aerial")
-    if status_ok then
-        aerial.on_attach(client, bufnr)
-    end
-
-    lsp_keymaps(bufnr)
-    lsp_formatting(client)
-    -- lsp_highlight_document(client)
 end
 
 -- For cmp-lsp
@@ -77,6 +81,7 @@ local capabilities = function()
             "additionalTextEdits",
         },
     }
+    capabilities.offsetEncoding = { 'utf-16' }
 
     -- Required for cmp
     local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
@@ -91,41 +96,44 @@ local opts = {
     on_attach = on_attach,
     capabilities = capabilities(),
 }
+
+
+-- Setup lsp servers with lspconfig
 local jsonls_opts = require "lsp.servers.jsonls"
-lsp['jsonls'].setup(vim.tbl_deep_extend("force", jsonls_opts, opts))
+lspconfig['jsonls'].setup(vim.tbl_deep_extend("force", jsonls_opts, opts))
 
 local yamlls_opts = require "lsp.servers.yamlls"
-lsp['yamlls'].setup(vim.tbl_deep_extend("force", yamlls_opts, opts))
+lspconfig['yamlls'].setup(vim.tbl_deep_extend("force", yamlls_opts, opts))
 
 local bashls_opts = require "lsp.servers.bashls"
-lsp['bashls'].setup(vim.tbl_deep_extend("force", bashls_opts, opts))
+lspconfig['bashls'].setup(vim.tbl_deep_extend("force", bashls_opts, opts))
 
 local asm_lsp_opts = require "lsp.servers.asm_lsp"
-lsp['asm_lsp'].setup(vim.tbl_deep_extend("force", asm_lsp_opts, opts))
+lspconfig['asm_lsp'].setup(vim.tbl_deep_extend("force", asm_lsp_opts, opts))
 
 local ccls_opts = require "lsp.servers.clangd"
-lsp['ccls'].setup(vim.tbl_deep_extend("force", ccls_opts, opts))
+lspconfig['ccls'].setup(vim.tbl_deep_extend("force", ccls_opts, opts))
 
 local html_opts = require "lsp.servers.html"
-lsp['html'].setup(vim.tbl_deep_extend("force", html_opts, opts))
+lspconfig['html'].setup(vim.tbl_deep_extend("force", html_opts, opts))
 
 local cssls_opts = require "lsp.servers.cssls"
-lsp['cssls'].setup(vim.tbl_deep_extend("force", cssls_opts, opts))
+lspconfig['cssls'].setup(vim.tbl_deep_extend("force", cssls_opts, opts))
 
 local tsserver_opts = require "lsp.servers.tsserver"
-lsp['tsserver'].setup(vim.tbl_deep_extend("force", tsserver_opts, opts))
+lspconfig['tsserver'].setup(vim.tbl_deep_extend("force", tsserver_opts, opts))
 
 local pyright_opts = require "lsp.servers.pyright"
-lsp['pyright'].setup(vim.tbl_deep_extend("force", pyright_opts, opts))
+lspconfig['pyright'].setup(vim.tbl_deep_extend("force", pyright_opts, opts))
 
 local hls_opts = require "lsp.servers.hls"
-lsp['hls'].setup(vim.tbl_deep_extend("force", hls_opts, opts))
+lspconfig['hls'].setup(vim.tbl_deep_extend("force", hls_opts, opts))
 
 local sumneko_opts = require "lsp.servers.sumneko_lua"
-lsp['sumneko_lua'].setup(vim.tbl_deep_extend("force", sumneko_opts, opts))
+lspconfig['sumneko_lua'].setup(vim.tbl_deep_extend("force", sumneko_opts, opts))
 
 local texlab_opts = require "lsp.servers.texlab"
-lsp['texlab'].setup(vim.tbl_deep_extend("force", texlab_opts, opts))
+lspconfig['texlab'].setup(vim.tbl_deep_extend("force", texlab_opts, opts))
 
 
 -- Setup UI for LSP
@@ -174,4 +182,7 @@ end
 setup()
 
 
+-- Setup Linter and Formatter with null-ls.nvim
 require "lsp.null-ls"
+
+

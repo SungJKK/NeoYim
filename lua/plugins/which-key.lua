@@ -78,10 +78,12 @@ local n_opts = {
     noremap = true, -- use `noremap` when creating keymaps
     nowait = false, -- use `nowait` when creating keymaps
 }
+
+-- press 'gq' to format selected lines
 wk.register({
     e = { "<cmd>NvimTreeToggle<cr>", "File explorer" },
     i = { ":set hlsearch!<cr>", "Toggle hlsearch" },
-    r = { ":lua vim.lsp.buf.formatting_sync()<cr>", "Format file" },
+    r = { ":lua vim.lsp.buf.format()<cr>", "Format file" },
     n = { ":Notifications<cr>", "Notifications" },
     u = {
         name = "+Lazy",

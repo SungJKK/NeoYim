@@ -15,7 +15,9 @@ CACHE_PATH = vim.fn.stdpath "cache" -- ~/.cache/nvim
 -- Core settings
 require "core.options"
 require "core.keybindings"
+
 require "core.pluginsManager"
 
 require "lsp"
+
 require "theme.colorscheme"
