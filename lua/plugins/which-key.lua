@@ -84,12 +84,11 @@ wk.register({
     r = { ":lua vim.lsp.buf.formatting_sync()<cr>", "Format file" },
     n = { ":Notifications<cr>", "Notifications" },
     u = {
-        name = "+Packer",
-        i = { ":PackerInstall<cr>", "Install" },
-        c = { ":PackerCompile profile=true<cr>", "Compile" },
-        r = { ":PackerClean<cr>", "Clean" },
-        u = { ":PackerSync<cr>", "Update" },
-        p = { ":PackerProfile<cr>", "Profiling" },
+        name = "+Lazy",
+        i = { ":Lazy install<cr>", "Install" },
+        r = { ":Lazy clean<cr>", "Clean" },
+        u = { ":Lazy check<cr>", "Update" },
+        p = { ":Lazy profile<cr>", "Profiling" },
     },
     s = {
         name = "+Session",
