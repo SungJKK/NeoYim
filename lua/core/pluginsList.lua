@@ -1,6 +1,5 @@
 local M = {
     -- Startup
-    "wbthomason/packer.nvim",
     {
         "nathom/filetype.nvim",
         config = function()
@@ -106,6 +105,9 @@ local M = {
         dependencies = "rafamadriz/friendly-snippets",
     },
     { "rafamadriz/friendly-snippets" },
+
+    -- Github Copilot
+    { "github/copilot.vim" },
 
     -- Git
     {

@@ -21,7 +21,7 @@ end
 
 
 -- Setup packages and manager
-lazy.setup('core.plugins', {
+lazy.setup('core.pluginsList', {
     defaults = {
         lazy = false, -- should plugins be lazy-loaded?
         version = nil,

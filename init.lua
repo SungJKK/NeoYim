@@ -19,5 +19,7 @@ require "core.keybindings"
 require "core.pluginsManager"
 
 require "lsp"
+vim.cmd("highlight CopilotSuggestion guifg=#555555 ctermfg=8")
 
 require "theme.colorscheme"
+
