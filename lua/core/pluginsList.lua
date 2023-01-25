@@ -186,6 +186,17 @@ local M = {
             require "plugins.logger"
         end,
     },
+    {
+        'epwalsh/obsidian.nvim',
+        config = function()
+            require('obsidian').setup({
+                dir = '~/Desktop/Obsidian/Notes',
+                completion = {
+                    nvim_cmp = true,
+                },
+            })
+        end,
+    },
 
     -- Themes & UI
     { "folke/tokyonight.nvim" },
