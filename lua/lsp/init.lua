@@ -16,15 +16,17 @@ local lsp_servers = {
 
         "cmake", -- CMake
         "clangd", -- C & C++
-        "asm_lsp", -- Assembly
+        "asm_lsp", -- assembly
 
-        "sumneko_lua", -- Lua
+        "lua_ls", -- Lua
         "vimls", -- VimL
 }
 
 -- Setup mason & mason-lspconfig
-local status_ok, _ = pcall(require, 'mason')
+local status_ok, mason = pcall(require, 'mason')
 if not status_ok then return end
+mason.setup()
+
 local status_ok, mason_lspconfig = pcall(require, 'mason-lspconfig')
 if not status_ok then return end
 mason_lspconfig.setup({
@@ -129,8 +131,8 @@ lspconfig['pyright'].setup(vim.tbl_deep_extend("force", pyright_opts, opts))
 local hls_opts = require "lsp.servers.hls"
 lspconfig['hls'].setup(vim.tbl_deep_extend("force", hls_opts, opts))
 
-local sumneko_opts = require "lsp.servers.sumneko_lua"
-lspconfig['sumneko_lua'].setup(vim.tbl_deep_extend("force", sumneko_opts, opts))
+local sumneko_opts = require "lsp.servers.lua_ls"
+lspconfig['lua_ls'].setup(vim.tbl_deep_extend("force", sumneko_opts, opts))
 
 local texlab_opts = require "lsp.servers.texlab"
 lspconfig['texlab'].setup(vim.tbl_deep_extend("force", texlab_opts, opts))

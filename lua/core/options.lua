@@ -42,7 +42,7 @@ local options = {
 
     mouse = "a",
     clipboard = "unnamedplus", -- Copy paste between vim and everything else
-    -- errorbells = false  -- Disable audible & visual bells
+    errorbells = false,  -- Disable audible & visual bells
     titlestring = "%<%F%=%l/%L - nvim",
     title = true,
     number = true, -- set numbered lines

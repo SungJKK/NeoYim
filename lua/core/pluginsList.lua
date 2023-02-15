@@ -202,7 +202,7 @@ local M = {
     { "folke/tokyonight.nvim" },
     { "EdenEast/nightfox.nvim" },
     { "kartikp10/noctis.nvim", dependencies = { "rktjmp/lush.nvim" } },
-    { "shaunsingh/oxocarbon.nvim", build = "./install.sh" },
+    -- { "shaunsingh/oxocarbon.nvim", build = "./install.sh" },
 
     { "kyazdani42/nvim-web-devicons" },
     {
@@ -235,7 +235,7 @@ local M = {
     },
     {
         "glepnir/dashboard-nvim",
-        event = "BufWinEnter",
+        event = "VimEnter",
         config = function()
             require "theme.dashboard"
         end,

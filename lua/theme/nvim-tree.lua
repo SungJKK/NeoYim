@@ -22,11 +22,26 @@ local nvim_tree_bindings = {
     { key = "H", cb = tree_cb "toggle_dotfiles" },
 }
 
+local function open_nvim_tree(data)
+    local IGNORED_FT = { 'dashboard' }
+    local real_file = vim.fn.filereadable(data.file) == 1
+    local no_name = data.file == '' and vim.bo[data.buf].buftype == ''
+    local filetype = vim.bo[data.buf].ft
+
+    if not real_file and not no_name then
+        return
+    end
+    if vim.tbl_contains(IGNORED_FT, filetype) then
+        return
+    end
+
+    require('nvim-tree.api').tree.toggle({ focus = false })
+end
+
 nvim_tree.setup {
     disable_netrw = true,
     hijack_netrw = true,
-    open_on_setup = false,
-    ignore_ft_on_setup = { "dashboard" },
+    -- ignore_ft_on_setup = { "dashboard" },
     open_on_tab = false,
     hijack_cursor = false,
     update_cwd = false,

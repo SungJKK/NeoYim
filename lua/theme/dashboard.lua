@@ -3,7 +3,6 @@ if not status_ok then
     return
 end
 
-local num_plugins_loaded = #vim.fn.globpath(DATA_PATH .. "/site/pack/packer/start", "*", 0, 1)
 custom_header = {
     "                       ....:..........                       ",
     "                   ......            ......                  ",
@@ -45,7 +44,7 @@ custom_header2 = {
     '⠀⠀⠀⠐⢤⣀⣀⢀⣀⣠⣴⣿⣿⠿⠋⠙⠿⣿⣿⣦⣄⣀⠀⠀⣀⡠⠂⠀⠀⠀ ',
     '⠀⠀⠀⠀⠀⠈⠉⠛⠛⠛⠛⠉⠀⠀⠀⠀⠀⠈⠉⠛⠛⠛⠛⠋⠁⠀⠀⠀⠀⠀ ',
 }
-db.custom_header = {
+custom_header3 = {
      '⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⣤⣤⣴⣦⣤⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ',
      '⠀⠀⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⣿⠿⠿⠿⠿⣿⣿⣿⣿⣶⣤⡀⠀⠀⠀⠀⠀⠀ ',
      '⠀⠀⠀⠀⣠⣾⣿⣿⡿⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⢿⣿⣿⣶⡀⠀⠀⠀⠀ ',
@@ -63,55 +62,130 @@ db.custom_header = {
      '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠛⠛⠛⠛⠛⠛⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ',
 }
 
--- center
-db.center_pad = 5
-db.custom_center = {
-    {
-        icon_hl = { fg = "#26ef74" },
-        icon = "🗌   ",
-        desc = "New File               ",
-        shortcut = "       ",
-        action = "DashboardNewFile",
-    },
-    {
-        icon_hl = { fg = "#26ef74" },
-        icon = "   ",
-        desc = "Find Files             ",
-        shortcut = "Spc f f",
-        action = "Telescope find_files",
-    },
-    {
-        icon_hl = { fg = "#26ef74" },
-        icon = "   ",
-        desc = "Find Words             ",
-        shortcut = "Spc f t",
-        action = "Telescope live_grep",
-    },
-    {
-        icon_hl = { fg = "#26ef74" },
-        icon = "   ",
-        desc = "Load Last Session      ",
-        shortcut = "Spc s l",
-        action = "SessionLoad",
-    },
-    {
-        icon_hl = { fg = "#26ef74" },
-        icon = "   ",
-        desc = "Marks                  ",
-        shortcut = "Spc f m",
-        action = "Telescope marks",
-    },
-    {
-        icon_hl = { fg = "#26ef74" },
-        icon = "   ",
-        desc = "Settings               ",
-        shortcut = "       ",
-        action = ":e " .. BASE_DIR .. "/init.lua",
-    },
-}
-db.session_directory = require("core.utils"):create_dir(BASE_DIR .. "/_cache/sessions")
-
 -- footer
-local plugins_count = vim.fn.len(vim.fn.globpath("~/.local/share/nvim/site/pack/packer/start", "*", 0, 1))
-db.footer_pad = 3
-db.custom_footer = { "Loaded " .. plugins_count .. " plugins" }
+db.setup({
+    theme = 'hyper',
+    config = {
+        header = custom_header3,
+        -- center = {
+        --     {
+        --         icon = "🗌   ",
+        --         icon_hl = 'Title',
+        --         desc = "New File",
+        --         desc_hl = 'String',
+        --         key = 'a',
+        --         keymap = 'SPC t t',
+        --         key_hl = 'Number',
+        --         action = "DashboardNewFile",
+        --     },
+        --     {
+        --         icon = "   ",
+        --         icon_hl = 'Title',
+        --         desc = "Find Files",
+        --         desc_hl = 'String',
+        --         key = 'b',
+        --         keymap = 'SPC f f',
+        --         key_hl = 'Number',
+        --         action = "Telescope find_files",
+        --     },
+        --     {
+        --         icon = "   ",
+        --         icon_hl = 'Title',
+        --         desc = "Find Words",
+        --         desc_hl = 'String',
+        --         key = 'c',
+        --         keymap = 'SPC f t',
+        --         key_hl = 'Number',
+        --         action = "Telescope live_grep",
+        --     },
+        --     {
+        --         icon = "   ",
+        --         icon_hl = 'Title',
+        --         desc = "Load Last Session",
+        --         desc_hl = 'String',
+        --         key = 'd',
+        --         keymap = 'SPC s l',
+        --         key_hl = 'Number',
+        --         action = "SessionLoad",
+        --     },
+        --     {
+        --         icon = "   ",
+        --         icon_hl = 'Title',
+        --         desc = "Marks",
+        --         desc_hl = 'String',
+        --         key = 'e',
+        --         keymap = 'SPC f m',
+        --         key_hl = 'Number',
+        --         action = "Telescope marks",
+        --     },
+        --     {
+        --         icon = "   ",
+        --         icon_hl = 'Title',
+        --         desc = "Settings",
+        --         desc_hl = 'String',
+        --         key = 'f',
+        --         keymap = 'SPC t b',
+        --         key_hl = 'Number',
+        --         action = ":e " .. BASE_DIR .. "/init.lua",
+        --     },
+        -- },
+        shortcut = {
+            {
+                desc = 'New File',
+                group = 'Title',
+                key = 'n',
+                action = 'DashboardNewFile',
+            },
+            {
+                desc = 'Find File',
+                group = 'title',
+                key = 'f',
+                action = 'Telescope find_files',
+            },
+            {
+                desc = 'Find string',
+                group = 'Title',
+                key = 't',
+                action = 'Telescope live_grep',
+            },
+            {
+                desc = 'Find mark',
+                group = 'Title',
+                key = 'm',
+                action = 'Telescope marks',
+            },
+            {
+                desc = 'Settings',
+                group = 'Title',
+                key = 's',
+                action = ':e ' .. BASE_DIR .. '/init.lua',
+            }
+        },
+        packages = { enable = true },
+        project = {
+            limit = 8,
+            icon = '  ',
+            label = 'Recent Projects',
+            action = 'Telescope find_files cwd=',
+        },
+        mru = { 
+            limit = 10,
+            icon = '  ',
+            label = 'Recent Files'
+        },
+        footer = {},
+    },
+    hide = {
+        statusline = false,
+        tabline = true,
+        winbar = true,
+    },
+    preview = {
+        command = '',
+        file_path = '',
+        file_height = '',
+        file_width = '',
+    }
+})
+
+

@@ -8,7 +8,6 @@ require("nvim-treesitter.configs").setup {
         "elm",
         "fortran",
         "hack",
-        "markdown",
         "swift",
         "phpdoc", 
         "tree-sitter-phpdoc"
